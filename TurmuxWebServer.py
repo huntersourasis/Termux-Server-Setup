@@ -8,15 +8,15 @@ def printBanner(text):
     styledText = colored(ascii_format , 'blue')
     print(styledText)
 def createDefaultWebDir() :
-    os.makedirs("~/termux-server/" , exist_ok=True) # exist_ok=True Pervents the already exist Error
+    os.makedirs(os.path.expanduser("~/termux-server/") , exist_ok=True) # exist_ok=True Pervents the already exist Error
     src = "./web/index.php"
-    dst = "~/termux-server/index.php"
+    dst = os.path.expanduser("~/termux-server/index.php")
     with open(src , "rb") as srcContent , open(dst , "wb") as dstContent :
         dstContent.write(srcContent.read())
 def changeServerPath(newPath):
     config = configparser.ConfigParser()
     config['server'] = {
-        'path' : newPath,
+        'path' : os.path.expanduser(newPath),
         'port' : getDefaultServerPort()
     }
     with open('./config.ini' , 'w') as configFile:
@@ -47,7 +47,7 @@ def getDefaultServerPort():
     return config['server']['port']
 def redirectToFeature(featureCode):
     if featureCode == 1 :
-        startServer(getDefaultServerPath() , getDefaultServerPort())
+        startServer(os.path.expanduser(getDefaultServerPath()) , getDefaultServerPort())
         return True
     elif featureCode == 2:
         updateTool()
@@ -67,13 +67,13 @@ def redirectToFeature(featureCode):
     else :
         return True
 def getAvailableWebs(serverPath):
-    return os.listdir(serverPath)
+    return os.listdir(os.path.expanduser(serverPath))
 
 def startServer(path , port):
     if os.path.isdir(path) == False:
         createDefaultWebDir()
-        changeServerPath("~/termux-server/")
-        path = "~/termux-server/"
+        changeServerPath(os.path.expanduser("~/termux-server/"))
+        path = os.path.expanduser("~/termux-server/")
     try:
         output = subprocess.check_output(["php" , "-S"  , f"0.0.0.0:{port}" , "-t" , path], text=True)
         return output 

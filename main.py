@@ -1,4 +1,4 @@
-from TurmuxWebServer import *
+from TermuxWebServer import *
 printBanner("Termux  WebServer")
 tempBool = True
 while (tempBool):

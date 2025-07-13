@@ -66,19 +66,42 @@ def redirectToFeature(featureCode):
         return False
     else :
         return True
+# fix     
 def getAvailableWebs(serverPath):
-    return os.listdir(os.path.expanduser(serverPath))
-
+    dir_names = [entry.name for entry in os.scandir(serverPath) if entry.is_dir()]
+    return dir_names
+# fix
+def generateWebsBanner(serverPath):
+    print("[1] All")
+    incrementer = 2
+    for path in getAvailableWebs(serverPath) :
+        print(f"[{incrementer}] {path}")
+        incrementer+=1
+    print(f"[{incrementer}] Exit")
+    
 def startServer(path , port):
+    def start(mainpath):
+        try:
+            output = subprocess.check_output(["php" , "-S"  , f"0.0.0.0:{port}" , "-t" , mainpath], text=True)
+            return output 
+        except subprocess.CalledProcessError as e:
+            return f"Command failed with return code {e.returncode}\nOutput: {e.output}"
     if os.path.isdir(path) == False:
         createDefaultWebDir()
         changeServerPath(os.path.expanduser("~/termux-server/"))
         path = os.path.expanduser("~/termux-server/")
-    try:
-        output = subprocess.check_output(["php" , "-S"  , f"0.0.0.0:{port}" , "-t" , path], text=True)
-        return output 
-    except subprocess.CalledProcessError as e:
-        return f"Command failed with return code {e.returncode}\nOutput: {e.output}"
+    boolBreaker = True
+    while boolBreaker:
+        generateWebsBanner(path)
+        usrInp = int(input("Select Option : "))
+        if usrInp > (len(getAvailableWebs(path)) + 2) :
+            boolBreaker = True
+        elif usrInp == (len(getAvailableWebs(path)) + 2):
+            boolBreaker = False
+        elif  usrInp == 1 :
+            start(path)
+        else :    
+            start(getAvailableWebs(path)[usrInp - 2])
 def updateTool():
     repo_path = "./"
     try:

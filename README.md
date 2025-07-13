@@ -27,8 +27,8 @@ It allows you to easily start the server, change configuration, and update the t
 ## 🛠 Installation
 
 ```bash
-git clone https://github.com/yourusername/termux-server-manager.git
-cd termux-server-manager
+git clone https://github.com/huntersourasis/Termux-Server-Setup.git
+cd Termux-Server-Setup
 python3 main.py
 ```
 

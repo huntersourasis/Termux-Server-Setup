@@ -86,7 +86,7 @@ def startServer(path , port):
             return output 
         except subprocess.CalledProcessError as e:
             return f"Command failed with return code {e.returncode}\nOutput: {e.output}"
-    if os.path.isdir(path) == False:
+    if os.path.isdir(os.path.expanduser(path)) == False:
         createDefaultWebDir()
         changeServerPath(os.path.expanduser("~/termux-server/"))
         path = os.path.expanduser("~/termux-server/")

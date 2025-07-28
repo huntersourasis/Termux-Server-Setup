@@ -90,6 +90,8 @@ def startServer(path , port):
         createDefaultWebDir()
         changeServerPath(os.path.expanduser("~/termux-server/"))
         path = os.path.expanduser("~/termux-server/")
+    else :
+        path = os.path.expanduser(path)
     boolBreaker = True
     while boolBreaker:
         generateWebsBanner(path)

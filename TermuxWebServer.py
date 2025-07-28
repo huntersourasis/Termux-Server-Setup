@@ -103,7 +103,7 @@ def startServer(path , port):
         elif  usrInp == 1 :
             start(path)
         else :    
-            start(getAvailableWebs(path)[usrInp - 2])
+            start(path + "/" + getAvailableWebs(path)[usrInp - 2])
 def updateTool():
     repo_path = "./"
     try:

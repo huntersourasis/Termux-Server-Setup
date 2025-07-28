@@ -75,7 +75,7 @@
         <p>Place your website files in the <code>~/termux-server/</code> directory.</p>
         <p>You can access your server at:</p>
         <p><code>http://<?php echo getHostByName(getHostName()); ?>:8090</code> or your device's local IP</p>
-        <footer>Managed by <strong>Termux PHP Web Server Setup Tool</strong></footer>
+        <footer>Managed by <strong>Sourasis Maity</strong></footer>
     </div>
 </body>
 </html>
